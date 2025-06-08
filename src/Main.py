@@ -25,3 +25,13 @@ X_train , X_test = selection(X_train , y_train , X_test)
 
 with pd.option_context('display.max_columns', None, 'display.width', None):
     print(X_train.head())
+
+X_train , y_train = balance(X_train , y_train)
+X_train , X_test , final = selection(X_train , y_train , X_test)
+print(final)
+
+with pd.option_context('display.max_columns', None, 'display.width', None):
+    print(X_train.head())
+
+
+
