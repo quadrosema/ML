@@ -95,7 +95,7 @@ def normalization(X_train , X_test):
 
     scaler = StandardScaler()
     X_train[numerical] = scaler.fit_transform(X_train[numerical])
-    X_test[numerical] = scaler.fit_transform(X_test[numerical])
+    X_test[numerical] = scaler.transform(X_test[numerical])
 
     print('\033[91m[Normalization (Standardization) done]]\033[0m')
     print(X_train[numerical].describe().round(3))
@@ -123,6 +123,7 @@ def encoding(X_train, X_test):
 
     X_train = pd.get_dummies(X_train , columns=one_hot)
     X_test = pd.get_dummies(X_test , columns=one_hot)
+    X_train, X_test = X_train.align(X_test, join='left', axis=1, fill_value=0)
 
 
     return X_train, X_test

@@ -5,14 +5,14 @@ import numpy as np
 from sklearn.linear_model import LogisticRegression as LR
 from collections import Counter
 
-from src.Main import X_test
-
 
 # function that applies SMOTE for oversampling
-def sampling(X_train , y_train):
+def balance(X_train , y_train):
+    print(f"\n\033[96m[Before SMOTE:]\033[0m {Counter(y_train)}")
 
     smote = SMOTE(random_state=42)
     X_train , y_train = smote.fit_resample(X_train , y_train)
+    print(f"\033[96m[After SMOTE:]\033[0m {Counter(y_train)}")
 
     return X_train , y_train
 
@@ -30,7 +30,7 @@ def selection(X_train , y_train , X_test):
     kbest.fit(X_train , y_train)
     kb_features = set(X_train.columns[kbest.get_support()])
 
-    est = LR(max_iter=1000 , random_state=42 , solver='saga' , multi_class='ovr')
+    est = LR(max_iter=1000 , random_state=42 , solver='saga')
     rfe = RFE(estimator=est , n_features_to_select=15 , step=0.1)
     rfe.fit(X_train , y_train)
     rfe_features = set(X_train.columns[rfe.support_])
@@ -42,5 +42,5 @@ def selection(X_train , y_train , X_test):
     X_train = X_train[final]
     X_test = X_test[final]
 
-    return X_train , X_test
+    return X_train , X_test , final
 

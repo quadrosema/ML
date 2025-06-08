@@ -1,13 +1,14 @@
 import pandas as pd
 from user_agents import parse
 
+
 #reads and shows some facts about the data + partial DEA
 def load(path):
     df = pd.read_csv(path)
 
     print(f'\n\033[96m[first 5 rows:]\033[0m')
     with pd.option_context('display.max_columns', None, 'display.width', None):
-        print(df.head())
+        print(df.head(20))
 
     print(f'\n\033[96m[information about the dataset:]\033[0m')
     df.info()
