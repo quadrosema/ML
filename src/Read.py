@@ -1,5 +1,6 @@
 import pandas as pd
-from user_agents import parse
+import seaborn as sns
+from matplotlib import pyplot as plt
 
 
 #reads and shows some facts about the data + partial DEA
@@ -16,10 +17,9 @@ def load(path):
     print(f'\n\033[96m[description and stats:]\033[0m')
     print(df.describe())
 
-    df['OS'] = df['Device Information'].apply(lambda x: parse(x).os.family)
-    df = df.drop(columns=['Device Information'])
-    print(df['OS'])
-    print(f'\n\033[96m[Device Description column replaced with OS for noise reduction]\033[0m')
+    sns.countplot(x='stroke', data=df)
+    plt.title("Imbalance data")
+    plt.show()
 
     print('\033[91m' + '-' * 470 + '\033[0m\n')
     return df
