@@ -1,6 +1,5 @@
 import pandas as pd
-from sklearn.preprocessing import StandardScaler, OrdinalEncoder, LabelEncoder
-from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
 
 
 #function that removes irrelevant or noisy features
@@ -9,9 +8,6 @@ def remove(df):
     print(f'\033[95m[PREPROCESSING STARTED:]\033[0m')
     df.drop(columns=['id'] , inplace=True)
     print(f'\n\033[96m[columns dropped due to irrelevancy or noise:]\033[0m Doctor , Name , Room Number , Hospital')
-
-    return df
-
 
 # function for removing dupes and comparing before and after
 def remove_dupes(df):
